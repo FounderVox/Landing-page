@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+  color: #121212;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c8c8c8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a4a4a4;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #000000 0%, #434343 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Shimmer animation */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Feature card hover effect */
+.feature-card {
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Button hover effects */
+.btn-primary {
+  @apply bg-black text-white px-6 py-3 rounded-full font-medium transition-all duration-300;
+}
+
+.btn-primary:hover {
+  @apply bg-gray-800 transform scale-105;
+}
+
+.btn-secondary {
+  @apply bg-white text-black px-6 py-3 rounded-full font-medium border-2 border-black transition-all duration-300;
+}
+
+.btn-secondary:hover {
+  @apply bg-black text-white;
+}
+
+/* FAQ accordion */
+.faq-item {
+  @apply border-b border-gray-200;
+}
+
+.faq-question {
+  @apply py-5 flex justify-between items-center cursor-pointer;
+}
+
+.faq-answer {
+  @apply overflow-hidden transition-all duration-300;
+}
+
+/* Pricing card */
+.pricing-card {
+  @apply bg-white rounded-2xl p-8 transition-all duration-300;
+}
+
+.pricing-card:hover {
+  @apply shadow-2xl transform scale-[1.02];
+}
+
+.pricing-card.popular {
+  @apply bg-black text-white;
+}
+
+/* Hero animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Stats counter animation */
+.stat-number {
+  @apply text-5xl font-bold;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  @apply fixed inset-0 bg-white z-50 flex flex-col items-center justify-center gap-8;
+}
