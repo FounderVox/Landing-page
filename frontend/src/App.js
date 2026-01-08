@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import PaymentForm from './components/ui/payment-form';
 import {
   Mic,
   FileText,
@@ -847,15 +848,16 @@ const PricingPage = () => {
                 )}
               </div>
 
-              <button
-                className={`w-full py-3 rounded-xl font-medium mb-6 transition-all duration-200 ${
+              <Link
+                to="/payment"
+                className={`w-full py-3 rounded-xl font-medium mb-6 transition-all duration-200 flex items-center justify-center ${
                   plan.popular
                     ? 'bg-white text-black hover:bg-gray-100'
                     : 'bg-black text-white hover:bg-gray-800'
                 }`}
               >
                 {plan.cta}
-              </button>
+              </Link>
 
               <ul className="space-y-3">
                 {plan.features.map((feature, fIndex) => (
@@ -955,8 +957,8 @@ const DownloadPage = () => {
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           {/* Mobile */}
           <div className="bg-white rounded-2xl p-8 shadow-premium border border-gray-100 text-center card-hover">
-            <div className="w-16 h-16 bg-black rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <Smartphone className="w-7 h-7 text-white" />
+            <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <Smartphone className="w-7 h-7 text-black" />
             </div>
             <h2 className="text-xl font-semibold text-black mb-2">Mobile</h2>
             <p className="text-gray-600 mb-6">Capture ideas on the go</p>
@@ -1020,7 +1022,7 @@ const DownloadPage = () => {
               "Keyboard shortcuts"
             ].map((feature, index) => (
               <div key={index} className="flex items-center gap-2.5 p-3 bg-white/[0.05] rounded-xl">
-                <Check className="w-4 h-4 text-violet-400 flex-shrink-0" />
+                <Check className="w-4 h-4 text-black flex-shrink-0" />
                 <span className="text-sm text-gray-300">{feature}</span>
               </div>
             ))}
@@ -1048,12 +1050,12 @@ const SignInPage = () => {
           <input
             type="email"
             placeholder="Email"
-            className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-violet-500 transition-colors text-black placeholder:text-gray-400 bg-white"
+            className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-black focus:outline-none focus:ring-[3px] focus:ring-black/10 transition-colors text-black placeholder:text-gray-400 bg-white"
           />
           <input
             type="password"
             placeholder="Password"
-            className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-violet-500 transition-colors text-black placeholder:text-gray-400 bg-white"
+            className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-black focus:outline-none focus:ring-[3px] focus:ring-black/10 transition-colors text-black placeholder:text-gray-400 bg-white"
           />
         </div>
         
@@ -1063,10 +1065,86 @@ const SignInPage = () => {
         
         <p className="text-center text-gray-600 text-sm">
           Don't have an account?{' '}
-          <a href="#" className="text-green-600 font-medium hover:underline">
+          <Link to="/signup" className="text-green-600 font-medium hover:underline">
             Get started free
-          </a>
+          </Link>
         </p>
+      </div>
+    </section>
+  );
+};
+
+// Sign Up Page
+const SignUpPage = () => {
+  return (
+    <section className="min-h-screen pt-28 pb-24 px-6 bg-gray-50 flex items-center justify-center">
+      <div className="bg-white rounded-2xl p-8 shadow-premium-lg max-w-md w-full border border-gray-100">
+        <div className="text-center mb-8">
+          <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mx-auto mb-4">
+            <Mic className="w-5 h-5 text-white" />
+          </div>
+          <h1 className="text-2xl font-bold text-black mb-1">Create your account</h1>
+          <p className="text-gray-600">Get started with Founder Note</p>
+        </div>
+        
+        <div className="space-y-4 mb-6">
+          <div className="grid grid-cols-2 gap-4">
+            <input
+              type="text"
+              placeholder="First name"
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-black focus:outline-none focus:ring-[3px] focus:ring-black/10 transition-colors text-black placeholder:text-gray-400 bg-white"
+            />
+            <input
+              type="text"
+              placeholder="Last name"
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-black focus:outline-none focus:ring-[3px] focus:ring-black/10 transition-colors text-black placeholder:text-gray-400 bg-white"
+            />
+          </div>
+          <input
+            type="email"
+            placeholder="Email address"
+            className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-black focus:outline-none focus:ring-[3px] focus:ring-black/10 transition-colors text-black placeholder:text-gray-400 bg-white"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-black focus:outline-none focus:ring-[3px] focus:ring-black/10 transition-colors text-black placeholder:text-gray-400 bg-white"
+          />
+        </div>
+        
+        <button className="w-full btn-primary text-white py-3 rounded-xl font-medium mb-4">
+          Sign Up
+        </button>
+        
+        <p className="text-center text-gray-500 text-xs mb-4">
+          A verification email will be sent to your email address
+        </p>
+        
+        <p className="text-center text-gray-600 text-sm">
+          Already have an account?{' '}
+          <Link to="/signin" className="text-green-600 font-medium hover:underline">
+            Sign in
+          </Link>
+        </p>
+      </div>
+    </section>
+  );
+};
+
+// Payment Page
+const PaymentPage = () => {
+  return (
+    <section className="min-h-screen pt-28 pb-24 px-6 bg-gray-50">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-5xl font-bold text-black mb-4">
+            Complete Your Purchase
+          </h1>
+          <p className="text-lg text-gray-600">
+            Secure payment powered by industry-leading providers
+          </p>
+        </div>
+        <PaymentForm />
       </div>
     </section>
   );
@@ -1083,6 +1161,8 @@ function App() {
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/download" element={<DownloadPage />} />
           <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/payment" element={<PaymentPage />} />
         </Routes>
         <Footer />
       </div>
