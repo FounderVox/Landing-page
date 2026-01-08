@@ -30,6 +30,7 @@ import {
   Cloud,
   Repeat
 } from 'lucide-react';
+import { Hero } from './components/ui/animated-hero';
 
 // Premium Logo Component
 const Logo = ({ variant = "dark" }) => (
@@ -177,238 +178,17 @@ const Navigation = () => {
 
 // Hero Section - Clean without scroll effects
 const HeroSection = () => {
-  return (
-    <section className="min-h-screen pt-28 pb-16 px-6 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        {/* Main Headline */}
-        <div className="text-center max-w-4xl mx-auto mb-12">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-5xl md:text-7xl font-bold tracking-tight text-black mb-6 leading-[1.1]"
-          >
-            Speak your ideas.
-            <br />
-            <span className="text-violet-600">We'll organize them.</span>
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mb-10 leading-relaxed"
-          >
-            Transform voice into organized notes, tasks, emails, and content. 
-            Built for founders who think faster than they type.
-          </motion.p>
-        </div>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
-        >
-          <Link
-            to="/download"
-            data-testid="hero-download-btn"
-            className="btn-primary text-white px-8 py-4 rounded-xl text-base font-medium flex items-center gap-3"
-          >
-            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-            </svg>
-            Start Free
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-          <button
-            data-testid="hero-demo-btn"
-            className="btn-secondary flex items-center gap-3 px-8 py-4 rounded-xl text-base font-medium"
-          >
-            <Play className="w-4 h-4" />
-            Watch Demo
-          </button>
-        </motion.div>
-
-        {/* Demo Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="relative max-w-5xl mx-auto"
-        >
-          {/* Main Demo Container */}
-          <div className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-black rounded-2xl p-1.5 shadow-premium-xl">
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 md:p-8 overflow-hidden">
-              {/* Window Controls */}
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-3 h-3 rounded-full bg-red-500" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                <div className="w-3 h-3 rounded-full bg-green-500" />
-                <span className="ml-4 text-gray-500 text-sm">Founder Note</span>
-              </div>
-
-              {/* Demo Content Grid */}
-              <div className="grid md:grid-cols-5 gap-4 md:gap-6">
-                {/* Voice Input Panel */}
-                <div className="md:col-span-2 space-y-4">
-                  <div className="bg-white/[0.05] border border-white/[0.08] rounded-xl p-4 md:p-5">
-                    <div className="flex items-center gap-3 mb-4">
-                      <motion.div 
-                        animate={{ scale: [1, 1.1, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className="w-11 h-11 bg-white rounded-xl flex items-center justify-center"
-                      >
-                        <Mic className="w-5 h-5 text-black" />
-                      </motion.div>
-                      <div>
-                        <p className="text-white font-medium text-sm">Recording</p>
-                        <p className="text-gray-500 text-xs">Speak naturally...</p>
-                      </div>
-                    </div>
-                    
-                    {/* Waveform */}
-                    <div className="flex items-center gap-0.5 h-10 mb-4">
-                      {[...Array(20)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          animate={{ 
-                            height: [6, Math.random() * 28 + 6, 6],
-                          }}
-                          transition={{ 
-                            duration: 0.8, 
-                            repeat: Infinity, 
-                            delay: i * 0.05,
-                            ease: "easeInOut"
-                          }}
-                          className="w-1 bg-gradient-to-t from-violet-600 to-violet-400 rounded-full"
-                        />
-                      ))}
-                    </div>
-                    
-                    <p className="text-gray-400 text-sm leading-relaxed">
-                      "Schedule investor call for Tuesday, prepare pitch deck by Monday, and send roadmap update to the team..."
-                    </p>
-                  </div>
-                </div>
-
-                {/* AI Output Panel */}
-                <div className="md:col-span-3 space-y-3">
-                  <motion.div 
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="bg-white/[0.05] border border-white/[0.08] rounded-xl p-4"
-                  >
-                    <div className="flex items-center gap-2 mb-2">
-                      <Calendar className="w-4 h-4 text-blue-400" />
-                      <span className="text-xs font-medium text-blue-400 uppercase tracking-wide">Meeting</span>
-                    </div>
-                    <p className="text-white text-sm font-medium">Investor call scheduled</p>
-                    <p className="text-gray-500 text-xs mt-1">Tuesday, 2:00 PM</p>
-                  </motion.div>
-
-                  <motion.div 
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.7 }}
-                    className="bg-white/[0.05] border border-white/[0.08] rounded-xl p-4"
-                  >
-                    <div className="flex items-center gap-2 mb-2">
-                      <ListTodo className="w-4 h-4 text-emerald-400" />
-                      <span className="text-xs font-medium text-emerald-400 uppercase tracking-wide">Task</span>
-                    </div>
-                    <p className="text-white text-sm font-medium">Prepare pitch deck</p>
-                    <p className="text-gray-500 text-xs mt-1">Due: Monday</p>
-                  </motion.div>
-
-                  <motion.div 
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.9 }}
-                    className="bg-white/[0.05] border border-white/[0.08] rounded-xl p-4"
-                  >
-                    <div className="flex items-center gap-2 mb-2">
-                      <Send className="w-4 h-4 text-violet-400" />
-                      <span className="text-xs font-medium text-violet-400 uppercase tracking-wide">Email</span>
-                    </div>
-                    <p className="text-white text-sm font-medium">Roadmap update to team</p>
-                    <p className="text-gray-500 text-xs mt-1">Draft ready to send</p>
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Floating Cards */}
-          <motion.div 
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -left-4 lg:-left-8 top-1/4 hidden md:block"
-          >
-            <div className="bg-white rounded-xl p-3 shadow-premium-lg border border-gray-100">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 bg-violet-100 rounded-lg flex items-center justify-center">
-                  <Mail className="w-4 h-4 text-violet-600" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-black">Email drafted</p>
-                  <p className="text-xs text-gray-500">Ready to send</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div 
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute -right-4 lg:-right-8 top-1/3 hidden md:block"
-          >
-            <div className="bg-white rounded-xl p-3 shadow-premium-lg border border-gray-100">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 bg-emerald-100 rounded-lg flex items-center justify-center">
-                  <Check className="w-4 h-4 text-emerald-600" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-black">3 tasks created</p>
-                  <p className="text-xs text-gray-500">Auto-organized</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div 
-            animate={{ y: [0, -6, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-            className="absolute left-8 bottom-4 hidden lg:block"
-          >
-            <div className="bg-white rounded-xl p-3 shadow-premium-lg border border-gray-100">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <Languages className="w-4 h-4 text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-black">12+ languages</p>
-                  <p className="text-xs text-gray-500">Auto-detected</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  );
+  return null;
 };
 
 // Features Section - Card based with gradient backgrounds
 const FeaturesSection = () => {
   const features = [
     {
-      icon: <Mic className="w-8 h-8 text-white" />,
+      icon: <Mic className="w-5 h-5 text-white" />,
       title: "Voice Capture",
       description: "Just speak naturally. Our AI transcribes with 99% accuracy in 12+ languages.",
-      gradient: "gradient-violet",
+      gradient: "bg-black",
       illustration: (
         <div className="relative h-48 flex items-center justify-center">
           <div className="absolute w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center">
@@ -428,10 +208,10 @@ const FeaturesSection = () => {
       )
     },
     {
-      icon: <Folder className="w-8 h-8 text-white" />,
+      icon: <Folder className="w-5 h-5 text-white" />,
       title: "Smart Organization",
       description: "Notes auto-categorize into meetings, ideas, tasks. Never manually sort again.",
-      gradient: "gradient-blue",
+      gradient: "bg-black",
       illustration: (
         <div className="relative h-48 flex items-center justify-center">
           <div className="space-y-2">
@@ -467,10 +247,10 @@ const FeaturesSection = () => {
       )
     },
     {
-      icon: <Users className="w-8 h-8 text-white" />,
+      icon: <Users className="w-5 h-5 text-white" />,
       title: "Team Collaboration",
       description: "Assign tasks from voice notes. Share insights instantly with your team.",
-      gradient: "gradient-emerald",
+      gradient: "bg-black",
       illustration: (
         <div className="relative h-48 flex items-center justify-center">
           <div className="flex -space-x-3">
@@ -492,10 +272,10 @@ const FeaturesSection = () => {
       )
     },
     {
-      icon: <Share2 className="w-8 h-8 text-white" />,
+      icon: <Share2 className="w-5 h-5 text-white" />,
       title: "Multi-Format Export",
       description: "One recording → emails, social posts, action items. Choose your output.",
-      gradient: "gradient-orange",
+      gradient: "bg-black",
       illustration: (
         <div className="relative h-48 flex items-center justify-center">
           <div className="grid grid-cols-2 gap-2">
@@ -549,8 +329,8 @@ const FeaturesSection = () => {
               {/* Content Area */}
               <div className="bg-white p-6 border-x border-b border-gray-100 rounded-b-2xl">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className={`w-10 h-10 ${feature.gradient} rounded-xl flex items-center justify-center`}>
-                    {React.cloneElement(feature.icon, { className: "w-5 h-5 text-white" })}
+                  <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center" style={{ backgroundColor: 'rgba(10, 10, 10, 1)', color: 'rgba(10, 10, 10, 1)' }}>
+                    {feature.icon}
                   </div>
                   <h3 className="text-xl font-semibold text-black">{feature.title}</h3>
                 </div>
@@ -649,6 +429,7 @@ const StatsSection = () => {
               key={index}
               className="text-center p-8 bg-white/[0.03] border border-white/[0.06] rounded-2xl"
               data-testid={`stat-${index}`}
+              style={{ borderColor: 'rgba(255, 255, 255, 0.06)' }}
             >
               <div className="text-5xl md:text-6xl font-bold text-white mb-2">{stat.number}</div>
               <div className="text-lg font-medium text-gray-300 mb-1">{stat.label}</div>
@@ -660,7 +441,6 @@ const StatsSection = () => {
     </section>
   );
 };
-
 // FAQ Section
 const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -749,7 +529,7 @@ const CTASection = () => {
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            to="/download"
+            to="/signin"
             data-testid="cta-download-btn"
             className="btn-primary text-white px-10 py-4 rounded-xl text-lg font-medium flex items-center gap-3"
           >
@@ -764,7 +544,7 @@ const CTASection = () => {
           </Link>
         </div>
         <p className="text-sm text-gray-500 mt-6">
-          No credit card required • Free forever plan
+          No credit card required • Start your free trial today
         </p>
       </div>
     </section>
@@ -782,7 +562,6 @@ const Footer = () => {
     Company: [
       { label: "About", href: "#" },
       { label: "Blog", href: "#" },
-      { label: "Careers", href: "#" },
     ],
     Resources: [
       { label: "Help Center", href: "#" },
@@ -856,6 +635,7 @@ const Footer = () => {
 const HomePage = () => {
   return (
     <>
+      <Hero />
       <HeroSection />
       <FeaturesSection />
       <HowItWorksSection />
@@ -1021,7 +801,7 @@ const PricingPage = () => {
           <button
             onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'yearly' : 'monthly')}
             className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${
-              billingPeriod === 'yearly' ? 'bg-violet-600' : 'bg-gray-300'
+              billingPeriod === 'yearly' ? 'bg-green-600' : 'bg-gray-300'
             }`}
           >
             <motion.div
@@ -1031,7 +811,7 @@ const PricingPage = () => {
             />
           </button>
           <span className={`text-sm font-medium ${billingPeriod === 'yearly' ? 'text-black' : 'text-gray-400'}`}>
-            Yearly <span className="text-violet-600 font-medium">-20%</span>
+            Yearly <span className="text-green-600 font-medium">-20%</span>
           </span>
         </div>
 
@@ -1049,7 +829,7 @@ const PricingPage = () => {
             >
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <div className="bg-violet-600 text-white text-xs font-medium px-3 py-1 rounded-full">
+                  <div className="bg-green-600 text-white text-xs font-medium px-3 py-1 rounded-full">
                     Most Popular
                   </div>
                 </div>
@@ -1081,7 +861,7 @@ const PricingPage = () => {
                 {plan.features.map((feature, fIndex) => (
                   <li key={fIndex} className="flex items-start gap-3">
                     <Check className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
-                      plan.popular ? 'text-violet-400' : 'text-violet-600'
+                      plan.popular ? 'text-green-400' : 'text-green-600'
                     }`} />
                     <span className={`text-sm ${plan.popular ? 'text-gray-300' : 'text-gray-600'}`}>
                       {feature}
@@ -1129,21 +909,21 @@ const PricingPage = () => {
                     <td className="p-4 text-center">
                       {typeof row.starter === 'boolean' 
                         ? row.starter 
-                          ? <Check className="w-4 h-4 mx-auto text-violet-600" /> 
+                          ? <Check className="w-4 h-4 mx-auto text-green-600" /> 
                           : <span className="text-gray-300">—</span>
                         : row.starter}
                     </td>
                     <td className="p-4 text-center bg-gray-50">
                       {typeof row.pro === 'boolean'
                         ? row.pro
-                          ? <Check className="w-4 h-4 mx-auto text-violet-600" />
+                          ? <Check className="w-4 h-4 mx-auto text-green-600" />
                           : <span className="text-gray-300">—</span>
                         : row.pro}
                     </td>
                     <td className="p-4 text-center">
                       {typeof row.team === 'boolean'
                         ? row.team
-                          ? <Check className="w-4 h-4 mx-auto text-violet-600" />
+                          ? <Check className="w-4 h-4 mx-auto text-green-600" />
                           : <span className="text-gray-300">—</span>
                         : row.team}
                     </td>
@@ -1268,12 +1048,12 @@ const SignInPage = () => {
           <input
             type="email"
             placeholder="Email"
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-violet-500 transition-colors text-black placeholder:text-gray-400"
+            className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-violet-500 transition-colors text-black placeholder:text-gray-400 bg-white"
           />
           <input
             type="password"
             placeholder="Password"
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-violet-500 transition-colors text-black placeholder:text-gray-400"
+            className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-violet-500 transition-colors text-black placeholder:text-gray-400 bg-white"
           />
         </div>
         
@@ -1283,7 +1063,7 @@ const SignInPage = () => {
         
         <p className="text-center text-gray-600 text-sm">
           Don't have an account?{' '}
-          <a href="#" className="text-violet-600 font-medium hover:underline">
+          <a href="#" className="text-green-600 font-medium hover:underline">
             Get started free
           </a>
         </p>
