@@ -32,13 +32,14 @@ import {
   Repeat
 } from 'lucide-react';
 import { Hero } from './components/ui/animated-hero';
+import { FeatureBentoGrid } from './components/ui/feature-bento-grid';
 
 // Premium Logo Component
 const Logo = ({ variant = "dark" }) => (
   <div className="flex items-center gap-2.5">
     <div className={`relative w-9 h-9 rounded-xl flex items-center justify-center ${
-      variant === "dark" ? "bg-black" : "bg-white"
-    }`}>
+      variant === "dark" ? "" : "bg-white"
+    }`} style={variant === "dark" ? { backgroundColor: '#BD6750' } : {}}>
       <Mic className={`w-4 h-4 ${variant === "dark" ? "text-white" : "text-black"}`} />
     </div>
     <span className={`text-lg font-semibold tracking-tight ${
@@ -64,7 +65,7 @@ const Navigation = () => {
   const navLinks = [
     { to: "/pricing", label: "Pricing" },
     { to: "/download", label: "Download" },
-    { href: "#features", label: "Features" },
+    { to: "/", label: "Features", hash: "#features" },
   ];
 
   return (
@@ -85,28 +86,28 @@ const Navigation = () => {
 
             <div className="hidden md:flex items-center gap-1">
               {navLinks.map((link, i) => (
-                link.to ? (
-                  <Link
-                    key={i}
-                    to={link.to}
-                    data-testid={`nav-${link.label.toLowerCase()}`}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                      location.pathname === link.to 
-                        ? 'text-black bg-black/5' 
-                        : 'text-gray-600 hover:text-black hover:bg-black/5'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <a
-                    key={i}
-                    href={link.href}
-                    className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-black hover:bg-black/5 rounded-lg transition-all duration-200"
-                  >
-                    {link.label}
-                  </a>
-                )
+                <Link
+                  key={i}
+                  to={link.hash ? `${link.to}${link.hash}` : link.to}
+                  data-testid={`nav-${link.label.toLowerCase()}`}
+                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+                    location.pathname === link.to 
+                      ? 'text-black bg-black/5' 
+                      : 'text-gray-600 hover:text-black hover:bg-black/5'
+                  }`}
+                  onClick={link.hash ? () => {
+                    if (location.pathname !== link.to) {
+                      setTimeout(() => {
+                        const element = document.getElementById('features');
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }, 100);
+                    }
+                  } : undefined}
+                >
+                  {link.label}
+                </Link>
               ))}
             </div>
 
@@ -114,7 +115,8 @@ const Navigation = () => {
               <Link
                 to="/signin"
                 data-testid="nav-signin"
-                className="btn-primary text-white px-5 py-2.5 rounded-lg text-sm font-medium"
+                className="text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
+                style={{ backgroundColor: '#BD6750' }}
               >
                 Get Started
               </Link>
@@ -142,25 +144,24 @@ const Navigation = () => {
           >
             <div className="flex flex-col gap-2 pt-4">
               {navLinks.map((link, i) => (
-                link.to ? (
-                  <Link
-                    key={i}
-                    to={link.to}
-                    className="text-xl font-medium text-black py-3 px-4 rounded-lg hover:bg-black/5"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <a
-                    key={i}
-                    href={link.href}
-                    className="text-xl font-medium text-black py-3 px-4 rounded-lg hover:bg-black/5"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </a>
-                )
+                <Link
+                  key={i}
+                  to={link.hash ? `${link.to}${link.hash}` : link.to}
+                  className="text-xl font-medium text-black py-3 px-4 rounded-lg hover:bg-black/5"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    if (link.hash && location.pathname !== link.to) {
+                      setTimeout(() => {
+                        const element = document.getElementById('features');
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }, 100);
+                    }
+                  }}
+                >
+                  {link.label}
+                </Link>
               ))}
               <Link
                 to="/signin"
@@ -385,7 +386,7 @@ const HowItWorksSection = () => {
               data-testid={`step-${index}`}
             >
               <div className="bg-gray-50 rounded-2xl p-8 h-full border border-gray-100 card-hover">
-                <div className="w-14 h-14 bg-black text-white rounded-xl flex items-center justify-center text-2xl font-bold mb-6">
+                <div className="w-14 h-14 text-white rounded-xl flex items-center justify-center text-2xl font-bold mb-6" style={{ backgroundColor: '#BD6750' }}>
                   {step.number}
                 </div>
                 <h3 className="text-xl font-semibold text-black mb-3">{step.title}</h3>
@@ -413,13 +414,13 @@ const StatsSection = () => {
   ];
 
   return (
-    <section className="py-24 px-6 bg-black text-white">
+    <section className="py-24 px-6 bg-white text-black">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-black">
             Built for speed and accuracy
           </h2>
-          <p className="text-lg text-gray-400">
+          <p className="text-lg text-gray-600">
             Powered by the latest AI for reliable performance.
           </p>
         </div>
@@ -428,13 +429,12 @@ const StatsSection = () => {
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="text-center p-8 bg-white/[0.03] border border-white/[0.06] rounded-2xl"
+              className="text-center p-8 bg-gray-50 border border-gray-200 rounded-2xl"
               data-testid={`stat-${index}`}
-              style={{ borderColor: 'rgba(255, 255, 255, 0.06)' }}
             >
-              <div className="text-5xl md:text-6xl font-bold text-white mb-2">{stat.number}</div>
-              <div className="text-lg font-medium text-gray-300 mb-1">{stat.label}</div>
-              <p className="text-gray-500 text-sm">{stat.description}</p>
+              <div className="text-5xl md:text-6xl font-bold mb-2" style={{ color: '#BD6750' }}>{stat.number}</div>
+              <div className="text-lg font-medium text-gray-700 mb-1">{stat.label}</div>
+              <p className="text-gray-600 text-sm">{stat.description}</p>
             </div>
           ))}
         </div>
@@ -532,7 +532,8 @@ const CTASection = () => {
           <Link
             to="/signin"
             data-testid="cta-download-btn"
-            className="btn-primary text-white px-10 py-4 rounded-xl text-lg font-medium flex items-center gap-3"
+            className="text-white px-10 py-4 rounded-xl text-lg font-medium flex items-center gap-3 transition-all duration-300"
+            style={{ backgroundColor: '#BD6750' }}
           >
             Get Started Free
             <ArrowRight className="w-5 h-5" />
@@ -579,7 +580,14 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-6 gap-8 mb-12">
           <div className="col-span-2">
-            <Logo variant="light" />
+            <div className="flex items-center gap-2.5">
+              <div className="relative w-9 h-9 rounded-xl flex items-center justify-center" style={{ backgroundColor: '#BD6750' }}>
+                <Mic className="w-4 h-4 text-white" />
+              </div>
+              <span className="text-lg font-semibold tracking-tight text-white">
+                Founder Note
+              </span>
+            </div>
             <p className="text-gray-400 mt-4 text-sm leading-relaxed max-w-xs">
               Voice-first productivity for founders who think faster than they type.
             </p>
@@ -638,6 +646,7 @@ const HomePage = () => {
     <>
       <Hero />
       <HeroSection />
+      <FeatureBentoGrid />
       <FeaturesSection />
       <HowItWorksSection />
       <StatsSection />
@@ -853,8 +862,9 @@ const PricingPage = () => {
                 className={`w-full py-3 rounded-xl font-medium mb-6 transition-all duration-200 flex items-center justify-center ${
                   plan.popular
                     ? 'bg-white text-black hover:bg-gray-100'
-                    : 'bg-black text-white hover:bg-gray-800'
+                    : 'text-white hover:opacity-90'
                 }`}
+                style={!plan.popular ? { backgroundColor: '#BD6750' } : {}}
               >
                 {plan.cta}
               </Link>
@@ -950,59 +960,28 @@ const DownloadPage = () => {
             Get Founder Note
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Available on all your devices. Syncs everywhere.
+            Available on iOS. Access from any device via web.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
+        <div className="max-w-md mx-auto mb-12">
           {/* Mobile */}
           <div className="bg-white rounded-2xl p-8 shadow-premium border border-gray-100 text-center card-hover">
             <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <Smartphone className="w-7 h-7 text-black" />
             </div>
-            <h2 className="text-xl font-semibold text-black mb-2">Mobile</h2>
+            <h2 className="text-xl font-semibold text-black mb-2">Mobile App</h2>
             <p className="text-gray-600 mb-6">Capture ideas on the go</p>
             
             <div className="space-y-3">
-              <button className="w-full btn-primary text-white px-6 py-3.5 rounded-xl font-medium flex items-center justify-center gap-2">
+              <button className="w-full text-white px-6 py-3.5 rounded-xl font-medium flex items-center justify-center gap-2 transition-all duration-300" style={{ backgroundColor: '#BD6750' }}>
                 <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
                   <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                 </svg>
                 Download for iOS
               </button>
-              <button className="w-full btn-secondary px-6 py-3.5 rounded-xl font-medium flex items-center justify-center gap-2">
-                <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-                  <path d="M17.523 2.306l-9.25 16.044a.5.5 0 00.433.75h4.628a.5.5 0 00.433-.25l9.25-16.044a.5.5 0 00-.433-.75h-4.628a.5.5 0 00-.433.25z"/>
-                </svg>
-                Download for Android
-              </button>
             </div>
-            <p className="text-xs text-gray-400 mt-4">iOS 15+ or Android 10+</p>
-          </div>
-
-          {/* Desktop */}
-          <div className="bg-white rounded-2xl p-8 shadow-premium border border-gray-100 text-center card-hover">
-            <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <Monitor className="w-7 h-7 text-black" />
-            </div>
-            <h2 className="text-xl font-semibold text-black mb-2">Desktop</h2>
-            <p className="text-gray-600 mb-6">Full-featured experience</p>
-            
-            <div className="space-y-3">
-              <button className="w-full btn-primary text-white px-6 py-3.5 rounded-xl font-medium flex items-center justify-center gap-2">
-                <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                </svg>
-                Download for Mac
-              </button>
-              <button className="w-full btn-secondary px-6 py-3.5 rounded-xl font-medium flex items-center justify-center gap-2">
-                <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-                  <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
-                </svg>
-                Download for Windows
-              </button>
-            </div>
-            <p className="text-xs text-gray-400 mt-4">macOS 12+ or Windows 10+</p>
+            <p className="text-xs text-gray-400 mt-4">iOS 15+</p>
           </div>
         </div>
 
@@ -1039,7 +1018,7 @@ const SignInPage = () => {
     <section className="min-h-screen pt-28 pb-24 px-6 bg-gray-50 flex items-center justify-center">
       <div className="bg-white rounded-2xl p-8 shadow-premium-lg max-w-md w-full border border-gray-100">
         <div className="text-center mb-8">
-          <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mx-auto mb-4">
+          <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#BD6750' }}>
             <Mic className="w-5 h-5 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-black mb-1">Welcome back</h1>
@@ -1065,7 +1044,7 @@ const SignInPage = () => {
         
         <p className="text-center text-gray-600 text-sm">
           Don't have an account?{' '}
-          <Link to="/signup" className="text-green-600 font-medium hover:underline">
+          <Link to="/signup" className="font-medium hover:underline" style={{ color: '#BD6750' }}>
             Get started free
           </Link>
         </p>
@@ -1080,7 +1059,7 @@ const SignUpPage = () => {
     <section className="min-h-screen pt-28 pb-24 px-6 bg-gray-50 flex items-center justify-center">
       <div className="bg-white rounded-2xl p-8 shadow-premium-lg max-w-md w-full border border-gray-100">
         <div className="text-center mb-8">
-          <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mx-auto mb-4">
+          <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#BD6750' }}>
             <Mic className="w-5 h-5 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-black mb-1">Create your account</h1>
@@ -1122,7 +1101,7 @@ const SignUpPage = () => {
         
         <p className="text-center text-gray-600 text-sm">
           Already have an account?{' '}
-          <Link to="/signin" className="text-green-600 font-medium hover:underline">
+          <Link to="/signin" className="font-medium hover:underline" style={{ color: '#BD6750' }}>
             Sign in
           </Link>
         </p>
@@ -1150,11 +1129,38 @@ const PaymentPage = () => {
   );
 };
 
+// Scroll to top component
+const ScrollToTop = () => {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    // If there's a hash, scroll to that element after a short delay
+    if (hash) {
+      setTimeout(() => {
+        const element = document.getElementById(hash.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      // Otherwise scroll to top
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [pathname, hash]);
+
+  return null;
+};
+
 // Main App
 function App() {
   return (
     <Router>
       <div className="App">
+        <ScrollToTop />
         <Navigation />
         <Routes>
           <Route path="/" element={<HomePage />} />

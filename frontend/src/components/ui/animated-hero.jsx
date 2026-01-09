@@ -25,10 +25,10 @@ function Hero() {
   return (
     <div className="w-full">
       <div className="container mx-auto">
-        <div className="flex gap-8 py-20 lg:py-40 items-center justify-center flex-col">
+        <div className="flex gap-8 py-20 lg:py-32 items-center justify-center flex-col">
           <div>
-            <Button variant="secondary" size="sm" className="gap-4">
-              #1 AI Voice Tool for Founders <MoveRight className="w-4 h-4" />
+            <Button variant="secondary" size="sm" className="gap-4" style={{ color: '#BD6750' }}>
+              <span style={{ color: '#BD6750' }}>#1 AI Voice Tool for Founders</span> <MoveRight className="w-4 h-4" style={{ color: '#BD6750' }} />
             </Button>
           </div>
           <div className="flex gap-4 flex-col">
@@ -41,7 +41,8 @@ function Hero() {
                 {titles.map((title, index) => (
                   <motion.span
                     key={index}
-                    className="absolute font-semibold text-black"
+                    className="absolute font-semibold"
+                    style={{ color: '#BD6750' }}
                     initial={{ opacity: 0, y: "-100" }}
                     transition={{ type: "spring", stiffness: 50 }}
                     animate={
